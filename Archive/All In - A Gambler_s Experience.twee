@@ -1,0 +1,698 @@
+:: StoryTitle
+All In - A Gambler's Experience
+
+
+:: StoryData
+{
+  "ifid": "9D727563-BEFF-4D5C-99EA-3845927141D6",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start",
+  "zoom": 0.6
+}
+
+
+:: Choose a Character {"position":"1800,600","size":"100,100"}
+<<set $who = "">>
+<div class="frame">
+  <div class="page-title">Choose a Story</div>
+  <div class="cards">
+    <!-- Marcus card -->
+    <div class="card">
+      <h3>Marcus</h3>
+      <h4>Online Poker</h4>
+      <p>Night-shift wind-down turned side hustle. Buy-ins creep; sleep slips.</p>
+        <div class="choice-group">
+    		[[Start Marcus->Marcus]]
+       </div>
+    </div>
+    <!-- Sofia placeholder -->
+    <div class="card">
+      <h3>Sofia</h3>
+      <h4>Scratch Cards</h4>
+      <p>“Just for fun” at the register becomes a ritual</p>
+      <div class="choice-group">
+    		[[Start Sofia->Sofia]]
+       </div>
+    </div>
+    <!-- Jordan placeholder -->
+    <div class="card">
+      <h3>Jordan</h3>
+      <h4>Sports Bettingr</h4>
+      <p>Weekend parlays and “one more leg.”</p>
+      <div class="choice-group">
+    		[[Start Jordan->Jordan]]
+       </div>
+    </div>
+  </div>
+</div>
+
+
+:: Creators {"position":"300,500","size":"100,100"}
+
+
+
+:: Info {"position":"1800,400","size":"100,100"}
+<<set $who = "">>
+<div class="frame">
+  <div class="page-title">What is<br>All In - A Gambler’s Experience?</div>
+  <p>
+     An empathy-building interactive story. Your choices affect <em>mood</em>, <em>trust</em>, and <em>money</em>.
+  </p>
+  <div class="choice-group">
+    [[Return to Start->Start]]
+    [[Choose a story->Choose a Character]]
+  </div>
+</div>
+
+
+
+:: Jordan {"position":"1000,800","size":"100,100"}
+
+
+
+:: Marcus {"position":"1800,800","size":"100,100"}
+<<set $who = "">>
+<div class="frame">
+  <div class="page-title">Marcus</div>
+  <p>
+     Marcus works evening shifts and unwinds by playing online poker…</p>
+  <div class="choice-group">
+    [[Start Marcus’s story->Marcus: Prompt 1]]
+    [[Choose Someone Else->Choose a Character]]
+  </div>
+</div>
+
+
+:: Marcus: Prompt 1 {"position":"1800,1000","size":"100,100"}
+<<set $who = "Marcus">>
+<<set $mood = 65>><<set $trust = 100>><<set $money = 500>>
+
+<div class="frame">
+  <div class="page-title">Something catchy here</div>
+  <p>
+     It’s 11:40 PM… <strong>What do you do?</strong></p>
+  <div class="choice-group">
+    [[Play a quick tourney->MarcusScene2PlayGame]]
+    [[Log off and go to bed->MarcusScene2SkipGame]]
+  </div>
+</div>
+
+
+
+
+:: Marcus: Prompt 2 {"position":"1800,1600","size":"100,100"}
+
+
+
+:: Marcus: Reflection {"position":"1800,1400","size":"100,100"}
+<div class="frame">
+  <div class="page-title">Marcus — Snapshot</div>
+  <<switch $lastAction>>
+    <<case "deposit_after_play">>
+      <p>You chased after a loss using the bonus. Short-term hope rose, but costs added up.</p>
+    <<case "stepaway_after_play">>
+      <p>You stopped after playing. That’s a hard pivot—nice job protecting sleep and trust.</p>
+    <<case "plan_ahead">>
+      <p>You planned a session for tomorrow with limits. Structure helps—watch that it doesn’t become justification.</p>
+    <<case "stepaway_no_play">>
+      <p>You kept the promise and stepped away. Trust and control both ticked up.</p>
+    <<default>>
+      <p>Your choices tonight will echo tomorrow.</p>
+  <</switch>>
+
+  <div class="choice-group">
+    [[Continue->Marcus: Prompt 2]]
+  </div>
+</div>
+
+
+
+:: MarcusDeposit_AfterPlay {"position":"1500,1200","size":"100,100"}
+<<set $money -= 50>><<set $mood += 3>><<set $trust -= 6>>
+<<set $lastAction = "deposit_after_play">>
+<div class="frame">
+  <p>Something about making a deposit here..</p>
+  <div class="choice-group">
+    [[Continue->Marcus: Reflection]]
+  </div>
+</div>
+
+
+:: MarcusPlanAhead {"position":"1900,1200","size":"100,100"}
+<<set $mood += 4>><<set $trust -= 2>>
+<<set $lastAction = "plan_ahead">>
+<div class="frame">
+  <p>You set a reminder for a short session tomorrow with a spending cap. It feels organized… maybe a little risky.</p>
+  <div class="choice-group">
+    [[Continue->Marcus: Reflection]]
+  </div>
+</div>
+
+
+:: MarcusScene2PlayGame {"position":"1600,1000","size":"100,100"}
+<<set $money -=20>><<set $mood += 8>><<set $trust -= 10>>
+<div class="frame">
+  <p>
+    You finish at 12:25 AM, down $20. A promo email lands:<br>
+<strong>"100% Deposit Match up to $200 – Tonight Only!"</strong></p>
+  <div class="choice-group">
+    [[Deposit $50 and keep playing->MarcusDeposit_AfterPlay]]
+    [[Delete it and step away->MarcusStepAway_AfterPlay]]
+  </div>
+</div>
+
+
+:: MarcusScene2SkipGame {"position":"2000,1000","size":"100,100"}
+<<set $mood -= 2>><<set $trust += 10>>
+<div class="frame">
+<p>You’re brushing your teeth by 11:55 PM when your phone lights up with a promo email:<br>
+<strong>"100% Deposit Match up to $200 – Tonight Only!"</strong><br>
+You told yourself you’d stop for the night — but a matched bonus could mean easy winnings tomorrow.</p>
+  <div class="choice-group">
+    [[Schedule a game for tomorrow->MarcusPlanAhead]]
+    [[Delete the email and go to bed->MarcusStepAway_NoPlay]]
+  </div>
+</div>
+
+
+:: MarcusStepAway_AfterPlay {"position":"1700,1200","size":"100,100"}
+<<set $mood += 2>><<set $trust += 6>>
+<<set $lastAction = "stepaway_after_play">>
+<div class="frame">
+<p>You close the laptop, shoulders still tight from the loss. The room quiets down; sleep might actually help.</p>
+  <div class="choice-group">
+    [[Continue->Marcus: Reflection]]
+  </div>
+</div>
+
+
+:: MarcusStepAway_NoPlay {"position":"2100,1200","size":"100,100"}
+<<set $mood += 1>><<set $trust += 8>>
+<<set $lastAction = "stepaway_no_play">>
+<div class="frame">
+  <p>You delete the email and plug your phone in across the room. It’s calm, and you kept your promise.</p>
+  <div class="choice-group">
+    [[Continue->Marcus: Reflection]]
+  </div>
+</div>
+
+
+:: PassageFooter {"position":"200,700","size":"100,100"}
+  <!-- Bottom HUD (only after a character is selected) -->
+ <<if $who !== "">>
+  <div class="hud hud-bottom">
+    <div class="hud-group">
+      <div class="hud-line">
+        <span class="hud-label">Mood</span>
+        <span class="hud-val"><<= $mood >></span>
+      </div>
+      <<showMeter $mood   "#5aa9e6">>
+    </div>
+
+    <div class="hud-group">
+      <div class="hud-line">
+        <span class="hud-label">Trust</span>
+        <span class="hud-val"><<= $trust >></span>
+      </div>
+      <<showMeter $trust "#8bc34a">>
+    </div>
+
+    <div class="hud-group">
+      <div class="hud-line">
+        <span class="hud-label">Money</span>
+        <span class="hud-money">$<<= $money >></span>
+      </div>
+      <<showMeter Math.min(100, Math.max(0, Math.round(($money/200)*100))) "#ffb703">>
+    </div>
+  </div>
+<</if>>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© <<= (new Date()).getFullYear() >> All-In</span>
+    <span class="sep">•</span>
+    <span>Made by the Creators team</span>
+  </div>
+</footer>
+
+
+
+:: PassageHeader {"position":"200,300","size":"100,100"}
+<!-- start page shell (wraps header + page content + HUD) -->
+<div class="page-shell">
+  <div class="site-header">
+    <div class="brand">
+      <span class="text-primary">ALL</span><span class="text-accent">-IN</span>
+    </div>
+    <nav class="nav">
+      <span class="nav-link">[[Resources]]</span>
+      <span class="nav-link">[[Creators]]</span>
+    </nav>
+  </div>
+
+
+
+:: Resources {"position":"100,500","size":"100,100"}
+<<set $who = "">>
+<div class="frame" style="background: var(--collection-1-light); border-radius: 16px; padding: 40px 24px;">
+  <div class="page-title">Creators</div>
+  <div style="font-family: Inter, sans-serif; color:#000; max-width: 820px; margin: 0 auto; text-align:center;">
+    <p>Hamza, Kate, Leyton</p>
+  </div>
+  <p style="text-align:center; margin-top:16px;">[[Back to Title->Start]]</p>
+</div>
+
+
+
+:: Sofia {"position":"2700,800","size":"100,100"}
+
+
+
+:: Start {"position":"1800,200","size":"100,100"}
+<<set $who = "">>
+<div class="frame">
+  <div class="page-title">All In - A Gambler’s Experience</div>
+  <p>
+    A narrative game where small choices shape <em>mood</em>, <em>trust</em>, and <em>money</em>.
+  </p>
+  <div class="choice-group">
+    [[How it works->Info]]
+    [[Choose a story->Choose a Character]]
+  </div>
+</div>
+
+
+
+:: StoryInit {"position":"200,100","size":"100,100"}
+<<set $who = "">>
+
+/* Clamp widget (already in your story, keep it) */
+<<widget "clampStats">>
+	<<set $mood to Math.min(100, Math.max(0, $mood))>>
+	<<set $trust to Math.min(100, Math.max(0, $trust))>>
+    <<set $money to Math.min(100, Math.max(0, $money))>>
+<</widget>>
+
+
+<<widget "showMeter">>
+	/% args: 0 = value (0–100 or anything), 1 = color %/
+	<<set _raw   = $args[0]>>
+	<<set _color = $args[1]>>
+
+	/% coerce to number and clamp %/
+	<<set _n = Number(_raw)>>
+	<<if isNaN(_n)>><<set _n = 0>><</if>>
+	<<set _n = Math.max(0, Math.min(100, Math.round(_n)))>>
+
+	<div
+		class="meter"
+		style="--val: <<= _n >>; --fill: <<= _color or '#999' >>;"
+		data-val="<<= _n >>">
+	</div>
+<</widget>>
+
+
+
+
+
+:: StoryStylesheet [stylesheet]
+/* --------------------------------------------------
+   Fonts
+-------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;800&display=swap");
+
+/* --------------------------------------------------
+   Base
+-------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* --------------------------------------------------
+   Design Tokens
+-------------------------------------------------- */
+:root {
+  --collection-1-light: #f1f0f7;
+  --collection-1-accent: #ffa630;
+  --collection-1-primary: #284b63;
+  --collection-1-overlay: #d7d6df;
+}
+
+/* --------------------------------------------------
+   Twine Container + Global Background
+-------------------------------------------------- */
+body,
+#story,
+#passages {
+  background: var(--collection-1-light);
+  color: var(--collection-1-primary);
+  max-width: 100%;
+  margin-top: 0;
+  line-height: 1;
+}
+
+/* --------------------------------------------------
+   Global Top Header
+-------------------------------------------------- */
+/* The shared card wrapper for each page */
+.page-shell {
+  background: var(--collection-1-light);
+  border-radius: 16px;
+}
+
+/* Header now lives INSIDE the page-shell */
+.site-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 0;       /* no horizontal padding; page-shell provides it */
+  margin: 0 0 12px;      /* spacing before the page body */
+  gap: 16px;
+  background: transparent;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* Keep existing header text styles */
+.site-header .brand {
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 80px;
+  line-height: 1;
+  display: flex;
+  align-items: flex-end;
+}
+.site-header .text-primary { color: var(--collection-1-primary); }
+.site-header .text-accent  { color: var(--collection-1-accent); }
+.site-header .nav { 
+  display: flex; 
+  gap: 18px; 
+  align-items: center;  
+}
+.site-header .nav .nav-link a.link-internal {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--collection-1-accent);
+}
+
+/* Make .frame act as the body section inside the shell (no duplicate card styling) */
+.page-shell .frame {
+  background: transparent;  /* shell handles background */
+  border-radius: 0;         /* shell has the radius */
+  padding: 40px 0 0;        /* inner top padding; no side padding (shell has it) */
+  margin-top: 0;            /* no extra gap; header already spaced */
+}
+
+/* --------------------------------------------------
+   Content Card (Page Body Wrapper)
+-------------------------------------------------- */
+.frame {
+  background: var(--collection-1-light);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: 48px;
+  color: var(--collection-1-primary);
+  text-align: center;
+  margin: 8px 0 24px;
+}
+
+/* --------------------------------------------------
+   Cards Grid (Choose-a-Character)
+-------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--collection-1-overlay);
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 280px;
+  padding: 1em;
+  line-height:1;
+  width: 90%;
+  margin: auto;
+}
+
+.card h3 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: 32px;
+  margin: 0;
+  color: #000;
+}
+
+.card p {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  margin: 0;
+  color: #000;
+  text-align: center;
+}
+
+.cards br, .card br, .frame br, .hud br {
+  display: none;
+}
+
+.page-title br, {
+  display: block;
+}
+
+.frame p br {
+  display: inline;
+}
+
+/* --------------------------------------------------
+   Buttons (class or wiki links styled as buttons)
+-------------------------------------------------- */
+.button,
+.card a.link-internal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;             /* keep full-width buttons inside cards */
+  max-width: 320px;
+  height: 56px;
+  padding: 0 20px;
+  background: var(--collection-1-accent);
+  border-radius: 10px;
+  border: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--collection-1-primary);
+  cursor: pointer;
+  transition: transform 0.06s ease-in-out, filter 0.12s ease-in-out;
+}
+
+.button:hover,
+.card a.link-internal:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+.button:focus-visible,
+.card a.link-internal:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+}
+
+/* --------------------------------------------------
+   Universal Passage Content Styling
+-------------------------------------------------- */
+.frame p,
+.frame li {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  color: var(--collection-1-primary);
+  line-height: 1.6;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 16px;
+}
+
+.frame em {
+  font-style: italic;
+  color: var(--collection-1-accent);
+}
+
+/* ---- Choice buttons group (SIDE-BY-SIDE) ---- */
+.choice-group {
+  display: flex;
+  flex-direction: row;      /* horizontal */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;          /* wrap on small screens */
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* If links are wrapped in <p>, let <a> participate in flex */
+.choice-group p {
+  display: contents;
+  margin: 0;
+}
+
+/* Buttons inside choice groups should NOT be full width */
+.choice-group a.link-internal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;              /* was 100% */
+  max-width: none;          /* remove 320px cap */
+  min-width: 200px;         /* optional: consistent button width */
+  height: 56px;
+  padding: 0 24px;
+  background: var(--collection-1-accent);
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--collection-1-primary);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.06s ease-in-out, filter 0.12s ease-in-out;
+}
+
+.choice-group a.link-internal:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+.choice-group a.link-internal:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+}
+
+/* Utility to stack choices on specific pages if needed */
+.choice-group.vertical {
+  flex-direction: column;
+}
+
+.choice-group.vertical a.link-internal {
+  width: 100%;
+  max-width: 320px;
+}
+
+/* --------------------------------------------------
+   Bottom HUD (appears from Prompt 1 onward)
+-------------------------------------------------- */
+/* HUD container */
+.hud {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  font-family: "Inter", sans-serif;
+}
+
+.hud-bottom {
+  margin: 20px auto 8px;
+  padding: 18px 16px;
+  max-width: 1100px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* One stat group */
+.hud-group {
+  min-width: 260px;
+  flex: 1 1 260px;
+}
+
+/* Label + numeric value row */
+.hud-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.hud-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #222;
+}
+.hud-val {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+.hud-money {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Meter: track + fill (using CSS vars) */
+.meter {
+  --val: 0;        /* number 0–100 (no %) */
+  --fill: #999;    /* bar color */
+
+  width: 100%;     /* fill its container; override to 220px if you prefer */
+  height: 14px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+}
+
+.meter::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--val) * 1%);
+  background: var(--fill);
+  transition: width 0.3s ease;
+}
+
+/* --------------------------------------------------
+   Footer
+-------------------------------------------------- */
+.site-footer {
+  margin: 8px auto 24px;
+  padding: 10px 16px;
+  max-width: 1100px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--collection-1-primary);
+}
+
+.footer-inner {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.footer-inner .sep {
+  opacity: 0.5;
+}
